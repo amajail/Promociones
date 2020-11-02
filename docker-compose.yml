@@ -1,14 +1,7 @@
 version: '3.4'
 
 services:
-  promociones.api:
-    image: ${DOCKER_REGISTRY-}promocionesapi
-    build:
-      context: .
-      dockerfile: Promociones.API/Dockerfile
-
   mongo:
-    container_name: mongo
     image: mongo
     restart: always
     ports:
@@ -19,3 +12,16 @@ services:
     restart: always
     ports:
       - 8081:8081
+
+  promociones.api:
+    image: ${DOCKER_REGISTRY-}promocionesapi
+    build:
+      context: .
+      dockerfile: Promociones.API/Dockerfile
+        ports:
+            - "8000:80"
+            - "44348:443"
+        depends_on:
+            - mongo
+        links:
+          - mongo
