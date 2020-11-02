@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  promociones.api:
+    image: ${DOCKER_REGISTRY-}promocionesapi
+    build:
+      context: .
+      dockerfile: Promociones.API/Dockerfile
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
