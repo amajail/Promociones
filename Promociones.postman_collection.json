@@ -99,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"MedioDePago\": null,\r\n    \"Banco\": null\r\n    \"CategoriaProducto\":[]\r\n}",
+					"raw": "{\r\n    \"MedioDePago\": null,\r\n    \"Banco\": null,\r\n    \"CategoriaProducto\":[\"Colchones\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -165,7 +165,7 @@
 	],
 	"variable": [
 		{
-			"id": "bc66e41e-0fa3-4847-9182-84330f61cbc7",
+			"id": "1b905837-0c52-4fef-85f0-c3eef3f8cc50",
 			"key": "url",
 			"value": "https://localhost:32844"
 		}

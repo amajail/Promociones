@@ -24,7 +24,7 @@ namespace Promociones.Domain.Specifications
         public Expression<Func<Promocion, bool>> Criteria()
         {
             return p =>
-            (_banco == null || p.MediosDePago.Contains(_medioDePago)) &&
+            (_medioDePago == null || p.MediosDePago.Contains(_medioDePago)) &&
             (_banco == null || p.Bancos.Contains(_banco)) &&
             (_categoriaProducto.Count() == 0)
             ;
