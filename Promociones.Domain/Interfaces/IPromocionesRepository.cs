@@ -7,11 +7,8 @@ namespace Promociones.Domain.Interfaces
 {
     public interface IPromocionRepository
     {
-        Task<IReadOnlyList<Promocion>> GetAllPromocionesAsync();
         Task<Promocion> GetByGuidAsync(Guid guid);
-        Task<IReadOnlyList<Promocion>> GetPromocionesVigentesAsync(DateTime fecha);
-        Task<IReadOnlyList<Promocion>> GetPromocionesVigentesAsync(string medioDePago, string banco, IEnumerable<string> categoriaProducto);
-
+        Task<IReadOnlyList<Promocion>> GetPromociones(ISpecification<Promocion> specification);
         // query after multiple parameters
         IEnumerable<Promocion> GetPromocion(string bodyText, DateTime updatedFrom, long headerSizeLimit);
 

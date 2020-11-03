@@ -31,21 +31,6 @@ namespace Promociones.Infra.Data.Repositories
             }
         }
 
-        public async Task<IReadOnlyList<Promocion>> GetAllPromocionesAsync()
-        {
-            try
-            {
-                return await _context
-                    .Promociones
-                    .Find(promocion => true).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                // log or manage the exception
-                throw ex;
-            }
-        }
-
         public async Task<Promocion> GetByGuidAsync(Guid guid)
         {
             return await _context
@@ -54,21 +39,11 @@ namespace Promociones.Infra.Data.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IReadOnlyList<Promocion>> GetPromocionesVigentesAsync(DateTime fecha)
-        {
-            //las fechas podrian estar en nulo
-            return await _context
-                .Promociones
-                .Find(promocion => (!promocion.FechaInicio.HasValue || promocion.FechaInicio.Value <= fecha) && (!promocion.FechaInicio.HasValue || promocion.FechaFin.Value >= fecha))
-                .ToListAsync();
-        }
-
-
-        public async Task<IReadOnlyList<Promocion>> GetPromocionesVigentesAsync(string medioDePago, string banco, IEnumerable<string> categoriaProducto)
+        public async Task<IReadOnlyList<Promocion>> GetPromociones(ISpecification<Promocion> specification)
         {
             return await _context
                 .Promociones
-                .Find(promocion => promocion.MediosDePago.Count() == 0 || promocion.MediosDePago.Contains(medioDePago))
+                .Find(specification.Criteria())
                 .ToListAsync();
         }
 

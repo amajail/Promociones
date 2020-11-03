@@ -1,9 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Promociones.Application.Helpers;
 using Promociones.Domain.Interfaces;
 using Promociones.Domain.Models;
 using Promociones.Infra.IoC;
@@ -27,6 +29,7 @@ namespace Promociones.API
             services.AddSingleton<IPromocionesDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<PromocionesDatabaseSettings>>().Value);
 
+            services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
 
             RegisterServices(services);
