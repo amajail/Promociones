@@ -1,19 +1,22 @@
 ﻿using Promociones.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Promociones.Domain.Interfaces
 {
     public interface IPromocionRepository
     {
-        IEnumerable<Promocion> GetAllPromociones();
-        Promocion GetPromocion(string id);
+        Task<IReadOnlyList<Promocion>> GetAllPromocionesAsync();
+        Task<Promocion> GetByGuidAsync(Guid guid);
+        Task<IReadOnlyList<Promocion>> GetPromocionesVigentesAsync(DateTime fecha);
+        Task<IReadOnlyList<Promocion>> GetPromocionesVigentesAsync(string medioDePago, string banco, IEnumerable<string> categoriaProducto);
 
         // query after multiple parameters
         IEnumerable<Promocion> GetPromocion(string bodyText, DateTime updatedFrom, long headerSizeLimit);
 
         // add new Promocion document
-        bool AddPromocion(Promocion item);
+        Task<Promocion> Create(Promocion p);
 
         // remove a single document / Promocion
         bool RemovePromocion(string id);
@@ -22,9 +25,10 @@ namespace Promociones.Domain.Interfaces
         bool UpdatePromocion(string id, string body);
 
         // demo interface - full document update
-       bool UpdatePromocionDocument(string id, string body);
+        bool UpdatePromocionDocument(string id, string body);
 
         // should be used with high cautious, only in relation with demo setup
         bool RemoveAllPromociones();
+
     }
 }

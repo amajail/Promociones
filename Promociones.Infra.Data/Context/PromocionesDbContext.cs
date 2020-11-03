@@ -13,8 +13,6 @@ namespace Promociones.Infra.Data.Context
             var client = new MongoClient(settings.ConnectionString);
             if (client != null)
                 _database = client.GetDatabase(settings.DatabaseName);
-
-             var dbList = client.ListDatabases().ToList();
         }
 
         public IMongoCollection<Promocion> Promociones => _database.GetCollection<Promocion>("Promociones");

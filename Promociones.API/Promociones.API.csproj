@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Promociones.Domain\Promociones.Domain.csproj" />
     <ProjectReference Include="..\Promociones.Infra.IoC\Promociones.Infra.IoC.csproj" />
   </ItemGroup>

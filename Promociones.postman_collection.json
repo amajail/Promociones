@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "f73ab609-d6a5-4dd8-899b-a473a1aa08b6",
+		"name": "Promociones",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear Promoción",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\": \"426cc3be-cd5c-4001-bd46-7566a18f2376\",\r\n    \"MediosDePago\": [\r\n        \"EFECTIVO\"\r\n    ],\r\n    \"Bancos\": [],\r\n    \"CategoriasProductos\": [\r\n        \"Colchones\"\r\n    ],\r\n    \"MaximaCantidadDeCuotas\": null,\r\n    \"ValorInteresCuotas\": null,\r\n    \"PorcentajeDeDescuento\": 10,\r\n    \"FechaInicio\": \"2018-06-01\",\r\n    \"FechaFin\": \"2030-06-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/promociones",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"promociones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Promociones",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/promociones",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"promociones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Promociones Vigentes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/promociones/vigentes",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"promociones",
+						"vigentes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Promociones Vigentes Fecha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/promociones/vigentes/2018-01-01",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"promociones",
+						"vigentes",
+						"2018-01-01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Promociones Vigentes Venta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MedioDePago\": null,\r\n    \"Banco\": null\r\n    \"CategoriaProducto\":[]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/promociones/vigentes",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"promociones",
+						"vigentes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Promocion por Guid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/promociones/guid/426cc3be-cd5c-4001-bd46-7566a18f2376",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"promociones",
+						"guid",
+						"426cc3be-cd5c-4001-bd46-7566a18f2376"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fad09d54-fb8c-4f5d-abfc-abfe9b166673",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "dbdd0d3d-5b61-4374-b696-d3327f875f92",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "bc66e41e-0fa3-4847-9182-84330f61cbc7",
+			"key": "url",
+			"value": "https://localhost:32844"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

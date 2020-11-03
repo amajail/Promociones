@@ -18,10 +18,10 @@ services:
     build:
       context: .
       dockerfile: Promociones.API/Dockerfile
-        ports:
-            - "8000:80"
-            - "44348:443"
-        depends_on:
-            - mongo
-        links:
-          - mongo
+    ports:
+        - "8000:80"
+        - "44348:443"
+    depends_on:
+        - mongo
+    links:
+        - mongo
