@@ -22,7 +22,7 @@ namespace Promociones.API.Controllers
         // Ver listado de promociones
         // GET: api/Promociones
         [HttpGet]
-        public async Task<ActionResult<PromocionesViewModel>> Get()
+        public async Task<ActionResult<IEnumerable<PromocionViewModel>>> Get()
         {
             var promociones = await _promocionService.GetPromocionesAsync();
 
@@ -47,7 +47,7 @@ namespace Promociones.API.Controllers
         // Ver listado de promociones vigentes
         // GET: api/Promociones/5
         [HttpGet("vigentes")]
-        public async Task<ActionResult<PromocionesViewModel>> GetVigentes()
+        public async Task<ActionResult<IEnumerable<PromocionViewModel>>> GetVigentes()
         {
             var promociones = await _promocionService.GetVigentesAsync(DateTime.Today);
 
@@ -77,7 +77,7 @@ namespace Promociones.API.Controllers
         [HttpPost("vigentes")]
         public async Task<ActionResult<PromocionViewModel>> GetVigentesVenta(VentaViewModel venta)
         {
-            var promociones = await _promocionService.GetVigentesAsync(venta);
+            var promociones = await _promocionService.GetVigentesVentaAsync(venta);
 
             if (promociones == null)
             {
@@ -86,8 +86,6 @@ namespace Promociones.API.Controllers
 
             return Ok(promociones);
         }
-
-
 
         // Crear una promoción
         // POST: api/Promociones
@@ -98,38 +96,52 @@ namespace Promociones.API.Controllers
             {
                 await _promocionService.Create(p);
             }
+            else
+            {
+                return BadRequest();
+            }
             return Ok(p.Id);
         }
 
-        //// Modificar una promoción
-        //// PUT: api/Promociones/5
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult<Guid>> Put(Guid id, [FromBody] Promocion pr)
-        //{
-        //    var p = await _promocionService.GetByGuidAsync(id);
-        //    if (p == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // Modificar una promoción
+        // PUT: api/Promociones/5
+        [HttpPut("{guid}")]
+        public async Task<ActionResult<Guid>> Put(Guid guid, [FromBody] PromocionViewModel pr)
+        {
+            var p = await _promocionService.GetByGuidAsync(guid);
 
-        //    await _promocionService.Update(id, pr);
+            if (p == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(pr.Id);
-        //}
+            if (ModelState.IsValid)
+            {
+                await _promocionService.Update(guid, pr);
+            }
+            else
+            {
+                return BadRequest();
+            }
 
-        //// Eliminar una promoción
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult> Delete(Guid id)
-        //{
-        //    var p = await _promocionService.GetByGuidAsync(id);
+            return Ok(pr.Id);
+        }
 
-        //    if (p == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // Eliminar una promoción
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{guid}")]
+        public async Task<ActionResult> Delete(Guid guid)
+        {
+            var p = await _promocionService.GetByGuidAsync(guid);
 
-        //    return NoContent();
-        //}
+            if (p == null)
+            {
+                return NotFound();
+            }
+
+            await _promocionService.Remove(guid);
+
+            return NoContent();
+        }
     }
 }

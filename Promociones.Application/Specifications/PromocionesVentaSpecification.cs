@@ -26,7 +26,7 @@ namespace Promociones.Domain.Specifications
             return p =>
             (_medioDePago == null || p.MediosDePago.Contains(_medioDePago)) &&
             (_banco == null || p.Bancos.Contains(_banco)) &&
-            (_categoriaProducto.Count() == 0)
+            (_categoriaProducto.Count() == 0 || p.CategoriasProductos.Where(i => _categoriaProducto.Contains(i)).Count() > 0)
             ;
         }
     }

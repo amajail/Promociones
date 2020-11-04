@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Promociones.Application.Helpers;
+using Promociones.API.Helpers;
 using Promociones.Domain.Interfaces;
 using Promociones.Domain.Models;
 using Promociones.Infra.IoC;

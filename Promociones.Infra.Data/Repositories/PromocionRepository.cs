@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Promociones.Domain.Interfaces;
 using Promociones.Domain.Models;
 using Promociones.Infra.Data.Context;
@@ -21,6 +22,9 @@ namespace Promociones.Infra.Data.Repositories
         {
             try
             {
+                p.Activar();
+                p.CargarFechaCreate();
+
                 await _context.Promociones.InsertOneAsync(p);
                 return p;
             }
@@ -47,35 +51,36 @@ namespace Promociones.Infra.Data.Repositories
                 .ToListAsync();
         }
 
-        public Promocion GetPromocion(string id)
+        public async Task<bool> UpdatePromocion(Guid id, Promocion p)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Promocion>.Filter.Eq(nameof(p.Id), id);
+
+            var update = Builders<Promocion>.Update
+                .Set(nameof(p.Bancos), p.Bancos)
+                .Set(nameof(p.CategoriasProductos), p.CategoriasProductos)
+                .Set(nameof(p.FechaFin), p.FechaFin)
+                .Set(nameof(p.FechaInicio), p.FechaInicio)
+                .Set(nameof(p.FechaModificacion), DateTime.Today)
+                .Set(nameof(p.MaximaCantidadDeCuotas), p.MaximaCantidadDeCuotas)
+                .Set(nameof(p.MediosDePago), p.MediosDePago)
+                .Set(nameof(p.PorcentajeDeDescuento), p.PorcentajeDeDescuento)
+                .Set(nameof(p.ValorInteresCuotas), p.ValorInteresCuotas);
+
+            var replaceOneResult = await _context.Promociones.UpdateOneAsync(filter, update);
+
+            return replaceOneResult.IsAcknowledged;
         }
 
-        public IEnumerable<Promocion> GetPromocion(string bodyText, DateTime updatedFrom, long headerSizeLimit)
+        public async Task<bool> Remove(Guid id)
         {
-            throw new NotImplementedException();
-        }
+            var filter = Builders<Promocion>.Filter.Eq("Id", id);
+            var update = Builders<Promocion>.Update
+                .Set("Activo", false)
+                .Set("FechaModificacion", DateTime.Today);
 
-        public bool RemoveAllPromociones()
-        {
-            throw new NotImplementedException();
-        }
+            var result = await _context.Promociones.UpdateOneAsync(filter, update);
 
-        public bool RemovePromocion(string id)
-        {
-            throw new NotImplementedException();
+            return result.IsAcknowledged;
         }
-
-        public bool UpdatePromocion(string id, string body)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdatePromocionDocument(string id, string body)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

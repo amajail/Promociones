@@ -24,7 +24,9 @@ namespace Promociones.Application.Services
 
         public async Task<Guid> Create(PromocionViewModel p)
         {
-            var promo = await _promocionRepository.Create(_mapper.Map<PromocionViewModel,Promocion>(p));
+            var promo = await _promocionRepository.Create(_mapper.Map<PromocionViewModel, Promocion>(p));
+
+            
             return promo.Id;
         }
         public async Task<PromocionViewModel> GetByGuidAsync(Guid guid)
@@ -34,35 +36,39 @@ namespace Promociones.Application.Services
             return promocion != null ? _mapper.Map<Promocion, PromocionViewModel>(promocion) : null;
         }
 
-        public async Task<PromocionesViewModel> GetPromocionesAsync()
+        public async Task<IEnumerable<PromocionViewModel>> GetPromocionesAsync()
         {
             var promociones = await _promocionRepository.GetPromociones(new PromocionesSpecification());
 
-            return promociones.Count > 0 ? MapearAListaViewModel(promociones) : null;
+            return promociones.Select(p => _mapper.Map<Promocion, PromocionViewModel>(p));
         }
 
-        public async Task<PromocionesViewModel> GetVigentesAsync(DateTime fecha)
+        public async Task<IEnumerable<PromocionViewModel>> GetVigentesAsync(DateTime fecha)
         {
             var promociones = await _promocionRepository.GetPromociones(new PromocionesFechaSpecification(fecha));
 
-            return promociones.Count > 0 ? MapearAListaViewModel(promociones) : null;
+            return promociones.Select(p => _mapper.Map<Promocion, PromocionViewModel>(p));
         }
 
-        public async Task<PromocionesViewModel> GetVigentesAsync(VentaViewModel venta)
+        public async Task<IEnumerable<PromocionVentaViewModel>> GetVigentesVentaAsync(VentaViewModel venta)
         {
-            var promociones = await _promocionRepository.GetPromociones(new PromocionesVentaSpecification(venta.MedioDePago, venta.Banco, venta.CategoriaProducto));
+            var promociones = await _promocionRepository.GetPromociones(new PromocionesFechaSpecification(DateTime.Today));
 
-            return promociones.Count > 0 ? MapearAListaViewModel(promociones) : null;
+            promociones.Where(new PromocionesVentaSpecification(venta.MedioDePago, venta.Banco, venta.CategoriaProducto).Criteria().Compile());
+
+            return promociones.Select(p => _mapper.Map<Promocion, PromocionVentaViewModel>(p));
         }
 
-        public Task<Guid> Update(Guid id, PromocionViewModel pr)
+        public async Task<bool> Update(Guid id, PromocionViewModel p)
         {
-            throw new NotImplementedException();
+            var promo = _mapper.Map<PromocionViewModel, Promocion>(p);
+
+            return await _promocionRepository.UpdatePromocion(id, promo); ;
         }
 
-        private PromocionesViewModel MapearAListaViewModel(IReadOnlyList<Promocion> promociones)
+        public async Task<bool> Remove(Guid id)
         {
-            return new PromocionesViewModel { Promociones = promociones.Select(p => _mapper.Map<Promocion, PromocionViewModel>(p)) };
+            return await _promocionRepository.Remove(id);
         }
     }
 }

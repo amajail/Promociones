@@ -15,7 +15,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Id\": \"426cc3be-cd5c-4001-bd46-7566a18f2376\",\r\n    \"MediosDePago\": [\r\n        \"EFECTIVO\"\r\n    ],\r\n    \"Bancos\": [],\r\n    \"CategoriasProductos\": [\r\n        \"Colchones\"\r\n    ],\r\n    \"MaximaCantidadDeCuotas\": null,\r\n    \"ValorInteresCuotas\": null,\r\n    \"PorcentajeDeDescuento\": 10,\r\n    \"FechaInicio\": \"2018-06-01\",\r\n    \"FechaFin\": \"2030-06-01\"\r\n}",
+					"raw": "{\r\n    \"Id\": \"426cc3be-cd5c-4001-bd46-7566a18f2377\",\r\n    \"MediosDePago\": [\r\n        \"TARJETA_CREDITO\", \"TARJETA_DEBITO\"\r\n    ],\r\n    \"Bancos\": [],\r\n    \"CategoriasProductos\": [\r\n        \"Celulares\", \"Audio\"\r\n    ],\r\n    \"MaximaCantidadDeCuotas\": null,\r\n    \"ValorInteresCuotas\": null,\r\n    \"PorcentajeDeDescuento\": 10,\r\n    \"FechaInicio\": \"2018-06-01\",\r\n    \"FechaFin\": \"2030-06-01\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -99,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"MedioDePago\": null,\r\n    \"Banco\": null,\r\n    \"CategoriaProducto\":[\"Colchones\"]\r\n}",
+					"raw": "{\r\n    \"MedioDePago\": \"EFECTIVO\",\r\n    \"Banco\": null,\r\n    \"CategoriaProducto\":[\"Colchones\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -139,6 +139,53 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Update Promocion",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\": \"426cc3be-cd5c-4001-bd46-7566a18f2377\",\r\n    \"MediosDePago\": [\r\n        \"TARJETA_CREDITO\", \"TARJETA_DEBITO\"\r\n    ],\r\n    \"Bancos\": [],\r\n    \"CategoriasProductos\": [\r\n        \"Celulares\", \"Audio\"\r\n    ],\r\n    \"MaximaCantidadDeCuotas\": null,\r\n    \"ValorInteresCuotas\": null,\r\n    \"PorcentajeDeDescuento\": 15,\r\n    \"FechaInicio\": \"2018-06-01\",\r\n    \"FechaFin\": \"2030-06-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/promociones/426cc3be-cd5c-4001-bd46-7566a18f2377",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"promociones",
+						"426cc3be-cd5c-4001-bd46-7566a18f2377"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Promocion",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/promociones/426cc3be-cd5c-4001-bd46-7566a18f2377",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"promociones",
+						"426cc3be-cd5c-4001-bd46-7566a18f2377"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -165,7 +212,7 @@
 	],
 	"variable": [
 		{
-			"id": "1b905837-0c52-4fef-85f0-c3eef3f8cc50",
+			"id": "d06fcc1a-97a4-4595-bfcb-10ee5c496f68",
 			"key": "url",
 			"value": "https://localhost:32844"
 		}

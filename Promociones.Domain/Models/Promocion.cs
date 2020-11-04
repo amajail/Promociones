@@ -22,5 +22,20 @@ namespace Promociones.Domain.Models
         public bool Activo { get; private set; }
         public DateTime FechaCreacion { get; private set; }
         public DateTime? FechaModificacion { get; private set; }
+
+        public void CargarFechaUpdate()
+        {
+            FechaModificacion = DateTime.Today;
+        }
+
+        public void CargarFechaCreate()
+        {
+            FechaCreacion = DateTime.Today;
+        }
+
+        public void Activar()
+        {
+            Activo = true;
+        }
     }
 }

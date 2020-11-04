@@ -16,7 +16,7 @@ namespace Promociones.Domain.Specifications
 
         public Expression<Func<Promocion, bool>> Criteria()
         {
-            return p =>
+            return p => (p.Activo == true) &
                     (!p.FechaInicio.HasValue || p.FechaInicio.Value <= _fecha) &&
                     (!p.FechaInicio.HasValue || p.FechaFin.Value >= _fecha);
         }
